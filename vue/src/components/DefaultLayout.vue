@@ -40,7 +40,6 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-
               <!-- Profile dropdown -->
               <Menu as="div" class="ml-3 relative">
                 <div>
@@ -66,9 +65,7 @@
                   <MenuItems
                     class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
-                    <MenuItem
-                      v-slot="{ active }"
-                    >
+                    <MenuItem v-slot="{ active }">
                       <a
                         @click="logout"
                         :class="[
@@ -124,13 +121,12 @@
                 {{ user.email }}
               </div>
             </div>
-            
           </div>
           <div class="mt-3 px-2 space-y-1">
             <DisclosureButton
               as="a"
               @click="logout"
-              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700  cursor-pointer"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
               >Logout</DisclosureButton
             >
           </div>
@@ -155,11 +151,11 @@ import {
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/vue/outline";
 import { useStore } from "vuex";
 import { computed } from "vue";
-import {useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 
 const navigation = [
-  { name: "Dashboard", to: {name: 'Dashboard'}},
-  { name: "Surveys", to: {name: "Surveys"}},
+  { name: "Dashboard", to: { name: "Dashboard" } },
+  { name: "Surveys", to: { name: "Surveys" } },
 ];
 
 export default {
@@ -179,16 +175,21 @@ export default {
     const store = useStore();
     const router = useRouter();
 
-    function logout(){
-      store.commit('logout');
-      router.push({
-        name: 'Login'
-      })
+    function logout() {
+      store.dispatch("logout").then(() => {
+        router.push({
+          name: "Login",
+        });
+      });
+      // store.commit('logout');
+      // router.push({
+      //   name: 'Login'
+      // })
     }
     return {
       user: computed(() => store.state.user.data),
       navigation,
-      logout
+      logout,
     };
   },
 };
