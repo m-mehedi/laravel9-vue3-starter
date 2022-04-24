@@ -31,7 +31,7 @@
             type="text"
             autocomplete="name"
             required=""
-            v-model="name"
+            v-model="user.name"
             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter your name"
           />
@@ -44,7 +44,7 @@
             type="email"
             autocomplete="email"
             required=""
-            v-model="email"
+            v-model="user.email"
             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Enter your email"
           />
@@ -63,10 +63,12 @@
           />
         </div>
         <div>
-          <label for="password-confirmation" class="sr-only">Confirm Password</label>
+          <label for="password_confirmation" class="sr-only"
+            >Confirm Password</label
+          >
           <input
-            id="password-confirmation"
-            name="password-confirmation"
+            id="password_confirmation"
+            name="password_confirmation"
             type="password"
             autocomplete="current-password"
             required=""
@@ -97,25 +99,24 @@
 
 <script setup>
 import { LockClosedIcon } from "@heroicons/vue/solid";
-import store from '../store';
-import {useRouter} from 'vue-router';
+import store from "../store";
+import { useRouter } from "vue-router";
 const router = useRouter();
-const user ={
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: ''
+const user = {
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
 };
 
-function register(e){
+function register(e) {
   e.preventDefault();
   store
-  .dispatch('register', user)
-  .then((res)=>{
+  .dispatch("register", user).then((res) => {
     router.push({
-      name: 'Dashboard'
-    })
-  })
+      name: "Dashboard",
+    });
+  });
 }
 </script>
 
